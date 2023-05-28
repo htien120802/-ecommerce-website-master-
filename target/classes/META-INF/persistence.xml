@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns="https://jakarta.ee/xml/ns/persistence"
+             xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd"
+             version="3.0">
+    <persistence-unit name="eCommerceWebsite" transaction-type="RESOURCE_LOCAL">
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <properties>
+            <property name="hibernate.connection.driver_class" value="com.mysql.cj.jdbc.Driver"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL8Dialect"/>
+
+            <!-- JawsDB MySQL -->
+<!--            <property name="hibernate.connection.url"-->
+<!--                      value="jdbc:mysql://a6nvoz4xk7fe7enr:b689k6qkoata3uxh@oliadkuxrl9xdugh.chr7pe7iynqr.eu-west-1.rds.amazonaws.com:3306/lwvds1y70nkxk3ko?reconnect=true"/>-->
+<!--            <property name="hibernate.connection.username" value="a6nvoz4xk7fe7enr"/>-->
+<!--            <property name="hibernate.connection.password" value="b689k6qkoata3uxh"/>-->
+
+            <!-- Localhost MySQL -->
+            <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/ecommercedb?autoReconnect=true"/>
+            <property name="hibernate.connection.username" value="root"/>
+            <property name="hibernate.connection.password" value="123456"/>
+
+            <!--SQL statement logging-->
+<!--            <property name="hibernate.show_sql" value="true"/>-->
+<!--            <property name="hibernate.format_sql" value="true"/>-->
+<!--            <property name="hibernate.highlight_sql" value="true"/>-->
+<!--            <property name="hibernate.use_sql_comments" value="true"/>-->
+
+            <!--Statistics settings-->
+            <property name="hibernate.generate_statistics" value="true"/>
+
+            <!--Set UTF-8-->
+            <property name="hibernate.connection.useUnicode" value="true"/>
+            <property name="hibernate.connection.characterEncoding" value="UTF-8"/>
+
+            <!--c3p0 Connection Pool-->
+            <property name="hibernate.c3p0.min_size" value="0"/>
+            <property name="hibernate.c3p0.max_size" value="20"/>
+            <property name="hibernate.c3p0.timeout" value="300"/>
+            <property name="hibernate.c3p0.acquire_increment" value="5"/>
+            <property name="hibernate.c3p0.max_statements" value="50"/>
+            <property name="hibernate.c3p0.idle_test_period" value="120"/>
+
+            <property name="hibernate.connection.autoReconnect" value="true"/>
+            <property name="hibernate.connection.autoReconnectForPools" value="true"/>
+            <property name="hibernate.connection.is-connection-validation-required" value="true"/>
+        </properties>
+    </persistence-unit>
+</persistence>
