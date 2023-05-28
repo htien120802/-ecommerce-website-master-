@@ -12,6 +12,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.ecommerce.model.dao.CategoryDAO;
 import com.ecommerce.model.entity.Category;
@@ -38,6 +39,13 @@ public class CommonFilter extends HttpFilter implements Filter {
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
+		HttpServletResponse httpResponse = (HttpServletResponse) response;
+		// Thiết lập X-Frame-Options
+		httpResponse.setHeader("X-Frame-Options", "SAMEORIGIN");
+		// Thiết lập X-Content Type
+		httpResponse.setHeader("X-Content-Type-Options", "nosniff");
+		// Thiết lập Content-Security-Policy
+		// httpResponse.setHeader("Content-Security-Policy", "default-src 'self'");
 		String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
 		if (!path.startsWith("/admin/")) {
