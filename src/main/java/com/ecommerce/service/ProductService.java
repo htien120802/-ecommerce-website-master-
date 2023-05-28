@@ -6,6 +6,7 @@ import com.ecommerce.model.dao.ProductDAO;
 import com.ecommerce.model.entity.Category;
 import com.ecommerce.model.entity.Customer;
 import com.ecommerce.model.entity.Product;
+import com.ecommerce.utility.CSRFTokenUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -393,6 +394,11 @@ public class ProductService {
 	public void search() throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
 		List<Product> result = null;
+		if(!CSRFTokenUtil.validateCSRFToken(request)){
+			request.setAttribute("message", "Invalid CSRF token or session expired.");
+			forwardToPage("shop/search.jsp", request, response);
+			return;
+		}
 		if (keyword.matches("^[a-zA-Z0-9]*$")){
 			if (keyword.equals("")) {
 				result = productDAO.listActive();

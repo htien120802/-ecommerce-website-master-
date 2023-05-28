@@ -4,6 +4,7 @@ import com.ecommerce.model.dao.CustomerDAO;
 import com.ecommerce.model.dao.OrderDAO;
 import com.ecommerce.model.dao.ReviewDAO;
 import com.ecommerce.model.entity.Customer;
+import com.ecommerce.utility.CSRFTokenUtil;
 import com.ecommerce.utility.EmailValidator;
 import com.ecommerce.utility.HashUtility;
 
@@ -180,13 +181,20 @@ public class CustomerService {
 
 	public void showCustomerRegisterForm() throws ServletException, IOException {
 		generateCountryList(request);
-
+		String csrfToken = CSRFTokenUtil.generateCSRFToken(request);
+		request.setAttribute("csrfToken",csrfToken);
 		forwardToPage("shop/register_form.jsp", request, response);
 	}
 
 	public void registerCustomer() throws ServletException, IOException {
 		String email = request.getParameter("email");
 		Customer existCustomer = customerDAO.findByEmail(email);
+		if (!CSRFTokenUtil.validateCSRFToken(request)){
+			messageForShop(
+					"Invalid CSRF token or session expired.",
+					request, response);
+		}
+
 		if (EmailValidator.isValidEmail(email)){
 			if (existCustomer != null) {
 				messageForShop(
@@ -210,12 +218,19 @@ public class CustomerService {
 	}
 
 	public void showLogin() throws ServletException, IOException {
+		String csrfToken = CSRFTokenUtil.generateCSRFToken(request);
+		request.setAttribute("csrfToken",csrfToken);
 		forwardToPage("shop/login.jsp", request, response);
 	}
 
 	public void doLogin() throws ServletException, IOException {
 		String email = request.getParameter("email");
 		String password = request.getParameter("password");
+		if (!CSRFTokenUtil.validateCSRFToken(request)){
+			request.setAttribute("message", "Invalid CSRF token or session expired.");
+			showLogin();
+			return;
+		}
 		if (EmailValidator.isValidEmail(email)){
 			Customer customer = customerDAO.findByEmailAndPassword(email, password);
 

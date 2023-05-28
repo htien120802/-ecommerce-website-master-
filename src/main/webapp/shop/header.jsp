@@ -111,6 +111,11 @@
                     </li>
                     <li class="nav-item">
                         <form action="search" method="post">
+                            <input type="hidden" name="csrfToken"
+                            <c:if test="${csrfToken != null}">
+                                   value="${csrfToken}"
+                            </c:if>
+                            >
                             <div class="flexbox">
                                 <div class="search">
                                     <div>
