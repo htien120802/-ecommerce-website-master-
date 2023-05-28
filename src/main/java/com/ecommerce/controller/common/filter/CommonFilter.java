@@ -41,7 +41,7 @@ public class CommonFilter extends HttpFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		// Thiết lập X-Frame-Options
-		httpResponse.setHeader("X-Frame-Options", "SAMEORIGIN");
+		httpResponse.setHeader("X-Frame-Options", "DENY");
 		// Thiết lập X-Content Type
 		httpResponse.setHeader("X-Content-Type-Options", "nosniff");
 		// Thiết lập Content-Security-Policy
