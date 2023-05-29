@@ -24,6 +24,11 @@
                         <h2 class="form-title">Sign up</h2>
 
                         <form method="post" action="register_customer" class="register-form" id="customerForm">
+                            <input type="hidden" name="csrfToken"
+                            <c:if test="${csrfToken != null}">
+                                   value="${csrfToken}"
+                            </c:if>
+                            >
                             <div class="form-group">
                                 <label><i
                                         class="zmdi zmdi-account material-icons-name"></i></label> <input
