@@ -19,7 +19,7 @@ import com.ecommerce.model.entity.Category;
 
 @WebFilter(filterName = "CommonFilter", value = "/*")
 public class CommonFilter extends HttpFilter implements Filter {
-
+	public static final String POLICY = "default-src 'self'; script-src 'self' 'unsafe-inline' http://www.w3.org/2000/svg http://code.jquery.com/jquery-1.10.2.min.js https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css https://use.fontawesome.com/releases/v5.0.6/js/all.js ; img-src 'self' data:; media-src https://lv-vod.fl.freecaster.net/vod/louisvuitton/dikq6kFFzG_HD.mp4; style-src 'self' 'unsafe-inline' https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css; font-src 'self'";
 	private static final long serialVersionUID = 1L;
 	private final CategoryDAO categoryDAO;
 
@@ -38,6 +38,9 @@ public class CommonFilter extends HttpFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
+//		if (response instanceof HttpServletResponse) {
+//			((HttpServletResponse)response).setHeader("Content-Security-Policy", CommonFilter.POLICY);
+//		}
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 		// Thiết lập X-Frame-Options
@@ -45,7 +48,7 @@ public class CommonFilter extends HttpFilter implements Filter {
 		// Thiết lập X-Content Type
 		httpResponse.setHeader("X-Content-Type-Options", "nosniff");
 		// Thiết lập Content-Security-Policy
-		// httpResponse.setHeader("Content-Security-Policy", "default-src 'self'");
+		httpResponse.setHeader("Content-Security-Policy", CommonFilter.POLICY);
 		String path = httpRequest.getRequestURI().substring(httpRequest.getContextPath().length());
 
 		if (!path.startsWith("/admin/")) {
@@ -54,6 +57,7 @@ public class CommonFilter extends HttpFilter implements Filter {
 		}
 
 		chain.doFilter(request, response);
+
 	}
 
 }

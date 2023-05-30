@@ -1,6 +1,4 @@
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-
 <link rel="shortcut icon" href="shop/images/favicon.ico">
 
 <link rel="stylesheet" href="${pageContext.request.contextPath}/shop/bootstrap/css/bootstrap.css">
