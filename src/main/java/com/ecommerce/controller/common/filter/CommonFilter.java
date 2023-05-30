@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.ecommerce.model.dao.CategoryDAO;
 import com.ecommerce.model.entity.Category;
+import com.ecommerce.utility.CSRFTokenUtil;
 
 @WebFilter(filterName = "CommonFilter", value = "/*")
 public class CommonFilter extends HttpFilter implements Filter {
@@ -38,11 +39,15 @@ public class CommonFilter extends HttpFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws ServletException, IOException {
-//		if (response instanceof HttpServletResponse) {
-//			((HttpServletResponse)response).setHeader("Content-Security-Policy", CommonFilter.POLICY);
-//		}
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
+
+		if (httpRequest.getMethod().equalsIgnoreCase("GET"))
+		{
+			String csrfToken = CSRFTokenUtil.generateCSRFToken(httpRequest);
+			request.setAttribute("csrfToken",csrfToken);
+		}
+
 		// Thiết lập X-Frame-Options
 		httpResponse.setHeader("X-Frame-Options", "DENY");
 		// Thiết lập X-Content Type

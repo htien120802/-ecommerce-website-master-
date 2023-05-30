@@ -7,6 +7,7 @@ import com.ecommerce.model.entity.Customer;
 import com.ecommerce.utility.CSRFTokenUtil;
 import com.ecommerce.utility.EmailValidator;
 import com.ecommerce.utility.HashUtility;
+import com.ecommerce.utility.SQLInjectionValidator;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -181,14 +182,25 @@ public class CustomerService {
 
 	public void showCustomerRegisterForm() throws ServletException, IOException {
 		generateCountryList(request);
-		String csrfToken = CSRFTokenUtil.generateCSRFToken(request);
-		request.setAttribute("csrfToken",csrfToken);
 		forwardToPage("shop/register_form.jsp", request, response);
 	}
 
 	public void registerCustomer() throws ServletException, IOException {
 		String email = request.getParameter("email");
+		String firstName = request.getParameter("firstName");
+		String lastName = request.getParameter("lastName");
+		String phone = request.getParameter("phone");
+		String addressLine1 = request.getParameter("addressLine1");
+		String addressLine2 = request.getParameter("addressLine2");
+		String city = request.getParameter("city");
+		String state = request.getParameter("state");
+		String zipCode = request.getParameter("zipCode");
+		String country = request.getParameter("country");
 		Customer existCustomer = customerDAO.findByEmail(email);
+
+		if (!SQLInjectionValidator.isInputValid(email,firstName,lastName,phone,addressLine1,addressLine2,city,state,zipCode,country))
+			messageForShop("Invalid input!",request,response);
+
 		if (!CSRFTokenUtil.validateCSRFToken(request)){
 			messageForShop(
 					"Invalid CSRF token or session expired.",
@@ -218,8 +230,7 @@ public class CustomerService {
 	}
 
 	public void showLogin() throws ServletException, IOException {
-		String csrfToken = CSRFTokenUtil.generateCSRFToken(request);
-		request.setAttribute("csrfToken",csrfToken);
+
 		forwardToPage("shop/login.jsp", request, response);
 	}
 
