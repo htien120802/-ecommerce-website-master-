@@ -181,6 +181,7 @@ public class CustomerService {
 	}
 
 	public void showCustomerRegisterForm() throws ServletException, IOException {
+		CSRFTokenUtil.generateCSRFToken(request);
 		generateCountryList(request);
 		forwardToPage("shop/register_form.jsp", request, response);
 	}
@@ -230,7 +231,8 @@ public class CustomerService {
 	}
 
 	public void showLogin() throws ServletException, IOException {
-
+		String csrfToken = CSRFTokenUtil.generateCSRFToken(request);
+		request.setAttribute("csrfToken",csrfToken);
 		forwardToPage("shop/login.jsp", request, response);
 	}
 
@@ -250,6 +252,7 @@ public class CustomerService {
 				showLogin();
 
 			} else {
+				CSRFTokenUtil.generateCSRFToken(request);
 				HttpSession session = request.getSession();
 				session.setAttribute("loggedCustomer", customer);
 

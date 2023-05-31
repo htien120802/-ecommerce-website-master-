@@ -23,6 +23,7 @@ public class CommonUtility {
 
 	public static void messageForShop(String message, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		CSRFTokenUtil.generateCSRFToken(request);
 		forwardToPage("shop/message.jsp", message, request, response);
 	}
 
