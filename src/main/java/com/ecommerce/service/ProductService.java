@@ -208,7 +208,7 @@ public class ProductService {
 			pageId = "1";
 		}
 
-		if (sort != null && !sort.matches("^[a-zA-Z0-9]*$"))
+		if (sort != null && !sort.matches("^[a-zA-Z0-9_]*$"))
 			sort = null;
 
 		if (pageId == null) {
@@ -307,7 +307,7 @@ public class ProductService {
 			rating = null;
 		}
 
-		if (sort != null && !sort.matches("^[a-zA-Z0-9]*$"))
+		if (sort != null && !sort.matches("^[a-zA-Z0-9_]*$"))
 			sort = null;
 
 		if (pageId == null) {
@@ -429,11 +429,11 @@ public class ProductService {
 	public void search() throws ServletException, IOException {
 		String keyword = request.getParameter("keyword");
 		List<Product> result = null;
-		if(!CSRFTokenUtil.validateCSRFToken(request)){
-			request.setAttribute("message", "Invalid CSRF token or session expired.");
-			forwardToPage("shop/search.jsp", request, response);
-			return;
-		}
+//		if(!CSRFTokenUtil.validateCSRFToken(request)){
+//			request.setAttribute("message", "Invalid CSRF token or session expired.");
+//			forwardToPage("shop/search.jsp", request, response);
+//			return;
+//		}
 		if (keyword.matches("^[a-zA-Z0-9]*$")){
 			if (keyword.equals("")) {
 				result = productDAO.listActive();
