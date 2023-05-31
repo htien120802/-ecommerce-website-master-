@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="shop/css/jquery.rateyo.min.css">
 
-    <script type="text/javascript" src="shop/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="shop/js/jquery.min.js"></script>
     <script type="text/javascript" src="shop/js/jquery.rateyo.min.js"></script>
 
     <title>Write Review - Online Store</title>
@@ -40,7 +40,7 @@
 <%@ include file="footer.jsp" %>
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="shop/js/list.min.js"></script>
-<script src="shop/js/jquery-3.1.1.min.js"></script>
+<script src="shop/js/jquery.min.js"></script>
 <script src="shop/bootstrap/js/bootstrap.min.js"></script>
 <script src="shop/js/tether.min.js"></script>
 </body>

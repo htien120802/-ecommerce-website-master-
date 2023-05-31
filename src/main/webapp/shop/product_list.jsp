@@ -142,7 +142,7 @@
 
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="shop/js/list.min.js"></script>
-<script src="shop/js/jquery-3.1.1.min.js"></script>
+<script src="shop/js/jquery.min.js"></script>
 <script src="shop/bootstrap/js/bootstrap.min.js"></script>
 <script src="shop/js/tether.min.js"></script>
 <script>

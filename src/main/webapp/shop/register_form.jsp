@@ -138,7 +138,7 @@
 <%@ include file="footer.jsp" %>
 
 <script src="shop/bootstrap/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="shop/js/jquery-3.3.1.min.js"></script>
+<script type="text/javascript" src="shop/js/jquery.min.js"></script>
 <script type="text/javascript" src="shop/js/jquery.validate.min.js"></script>
 <script src="shop/js/tether.min.js"></script>
 <script src="shop/js/popper.min.js"></script>

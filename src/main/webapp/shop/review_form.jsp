@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="shop/css/jquery.rateyo.min.css">
 
-    <script type="text/javascript" src="shop/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="shop/js/jquery.min.js"></script>
     <script type="text/javascript" src="shop/js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="shop/js/jquery.rateyo.min.js"></script>
 
