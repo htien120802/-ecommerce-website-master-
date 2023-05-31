@@ -204,7 +204,7 @@ public class ProductService {
 		if (sort != null && sort.length() > 20){
 			sort = null;
 		}
-		if(pageId != null && pageId.length() >= 2 || pageId.matches("\\d+") == false){
+		if(pageId != null && pageId.length() >= 2 || pageId != null && pageId.matches("\\d+") == false){
 			pageId = "1";
 		}
 
