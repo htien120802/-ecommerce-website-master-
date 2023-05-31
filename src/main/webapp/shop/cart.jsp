@@ -9,7 +9,7 @@
 
     <link rel="stylesheet" href="shop/css/style.css">
 
-    <script type="text/javascript" src="shop/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="shop/js/jquery.min.js"></script>
     <script type="text/javascript" src="shop/js/jquery.validate.min.js"></script>
 
     <script src="shop/bootstrap/js/bootstrap.min.js"></script>

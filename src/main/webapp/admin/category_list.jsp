@@ -26,7 +26,7 @@
     <!-- You can change the theme colors from here -->
     <link href="../admin/html/css/colors/default.css" id="theme" rel="stylesheet">
 
-    <script type="text/javascript" src="../assets/js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="../assets/js/jquery.min.js"></script>
     <script type="text/javascript" src="../assets/js/jquery.validate.min.js"></script>
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/list.js/2.3.1/list.min.js"></script>
