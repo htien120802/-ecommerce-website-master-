@@ -7,6 +7,7 @@ import com.ecommerce.model.entity.Category;
 import com.ecommerce.model.entity.Customer;
 import com.ecommerce.model.entity.Product;
 import com.ecommerce.utility.CSRFTokenUtil;
+import org.hibernate.annotations.Check;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -200,6 +201,13 @@ public class ProductService {
 		String sort = request.getParameter("sort");
 		String pageId = request.getParameter("page");
 
+		if (sort != null && sort.length() > 20){
+			sort = null;
+		}
+		if(pageId != null && pageId.length() >= 2 || pageId.matches("\\d+") == false){
+			pageId = "1";
+		}
+
 		if (sort != null && !sort.matches("^[a-zA-Z0-9]*$"))
 			sort = null;
 
@@ -272,13 +280,32 @@ public class ProductService {
 	}
 
 	public void listProductByCategory() throws ServletException, IOException {
-		int categoryId = Integer.parseInt(request.getParameter("id"));
+		String checkcategoryId = request.getParameter("id");
+		int categoryId = 0;
+		if(checkcategoryId.length() < 3 && checkcategoryId.matches("\\d+") == true){
+			categoryId = Integer.parseInt(checkcategoryId);
+		}
+		if(checkcategoryId != null && checkcategoryId.length() > 3 || checkcategoryId.matches("\\d+") == false){
+			categoryId = 0;
+		}
+
+
 		Category category = categoryDAO.get(categoryId);
 		List<Product> listProducts = productDAO.listByCategory(categoryId);
 
 		String sort = request.getParameter("sort");
 		String pageId = request.getParameter("page");
 		String rating = request.getParameter("rating");
+
+		if (sort != null && sort.length() > 20){
+			sort = null;
+		}
+		if(pageId != null && pageId.length() >= 2 || pageId != null && pageId.matches("\\d+") == false){
+			pageId = "1";
+		}
+		if(rating != null && rating.length() > 3){
+			rating = null;
+		}
 
 		if (sort != null && !sort.matches("^[a-zA-Z0-9]*$"))
 			sort = null;
@@ -289,7 +316,7 @@ public class ProductService {
 
 		if (category == null) {
 			messageForShop(String.format(
-					"Sorry. The category ID %s is not available.<br/><a href='#' type='button' onclick='history.go(-1);'>Click here</a> to go back.",
+					"Sorry. The category ID is not available.<br/><a href='#' type='button' onclick='history.go(-1);'>Click here</a> to go back.",
 					categoryId), request, response);
 			return;
 		}
@@ -362,7 +389,15 @@ public class ProductService {
 	}
 
 	public void viewProductDetail() throws ServletException, IOException {
-		Integer productId = Integer.parseInt(request.getParameter("id"));
+		String checkproductId = request.getParameter("id");
+		int productId = 0;
+		if(checkproductId.length() <= 4 && checkproductId.matches("\\d+") == true){
+			productId = Integer.parseInt(checkproductId);
+		}
+		if(checkproductId != null && checkproductId.length() > 4 || checkproductId.matches("\\d+") == false){
+			productId = 0;
+		}
+
 		Product product = productDAO.get(productId);
 
 		if (product != null && product.isActive()) {
@@ -386,7 +421,7 @@ public class ProductService {
 
 		} else {
 			messageForShop(String.format(
-					"Sorry. The product with ID %s is not available.<br/><a href='#' type='button' onclick='history.go(-1);'>Click here</a> to go back.",
+					"Sorry. The product with ID is not available.<br/><a href='#' type='button' onclick='history.go(-1);'>Click here</a> to go back.",
 					productId), request, response);
 		}
 	}
