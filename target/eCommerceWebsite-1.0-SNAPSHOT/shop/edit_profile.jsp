@@ -27,6 +27,9 @@
                         <h5 class="form-title">Edit My Profile</h5>
 
                         <form method="post" action="update_profile" class="register-form" id="customerForm">
+                            <c:if test="${csrfToken != null}">
+                                value="${csrfToken}"
+                            </c:if>
                             <div class="form-group">
                                 <label><i class="zmdi zmdi-account material-icons-name"></i></label>
                                 <input type="text" name="firstName" placeholder="Your first name."

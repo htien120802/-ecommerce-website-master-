@@ -199,8 +199,10 @@ public class CustomerService {
 		String country = request.getParameter("country");
 		Customer existCustomer = customerDAO.findByEmail(email);
 
-		if (!SQLInjectionValidator.isInputValid(email,firstName,lastName,phone,addressLine1,addressLine2,city,state,zipCode,country))
+		if (!SQLInjectionValidator.isInputValid(email,firstName,lastName,phone,addressLine1,addressLine2,city,state,zipCode,country)){
 			messageForShop("Invalid input!",request,response);
+			return;
+		}
 
 		if (!CSRFTokenUtil.validateCSRFToken(request)){
 			messageForShop(
@@ -281,10 +283,15 @@ public class CustomerService {
 	}
 
 	public void showCustomerProfile() throws ServletException, IOException {
+
+		String csrfToken = CSRFTokenUtil.generateCSRFToken(request);
+		request.setAttribute("csrfToken",csrfToken);
+
 		forwardToPage("shop/customer_profile.jsp", request, response);
 	}
 
 	public void showCustomerProfileEditForm() throws ServletException, IOException {
+
 		generateCountryList(request);
 		forwardToPage("shop/edit_profile.jsp", request, response);
 	}
@@ -295,5 +302,16 @@ public class CustomerService {
 		customerDAO.update(customer);
 		showCustomerProfile();
 	}
-
+	public void updateCustomerPassword() throws ServletException, IOException {
+		if (CSRFTokenUtil.validateCSRFToken(request)){
+			Customer customer = (Customer) request.getSession().getAttribute("loggedCustomer");
+			String password = request.getParameter("password");
+			if (password != null && !"".equals(password)) {
+				String encryptedPassword = HashUtility.generateMD5(password);
+				customer.setPassword(encryptedPassword);
+			}
+			customerDAO.update(customer);
+			showCustomerProfile();
+		}
+	}
 }

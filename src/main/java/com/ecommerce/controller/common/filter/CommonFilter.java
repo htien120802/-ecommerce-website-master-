@@ -42,11 +42,10 @@ public class CommonFilter extends HttpFilter implements Filter {
 		HttpServletRequest httpRequest = (HttpServletRequest) request;
 		HttpServletResponse httpResponse = (HttpServletResponse) response;
 
-//		if (httpRequest.getMethod() == "GET")
-//		{
-//			String csrfToken = CSRFTokenUtil.generateCSRFToken(httpRequest);
-//			request.setAttribute("csrfToken",csrfToken);
-//		}
+		if (httpRequest.getMethod().equalsIgnoreCase("TRACE"))
+		{
+			httpResponse.sendError(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+		}
 
 		// Thiết lập X-Frame-Options
 		httpResponse.setHeader("X-Frame-Options", "DENY");
